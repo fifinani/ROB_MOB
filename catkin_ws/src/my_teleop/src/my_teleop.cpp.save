@@ -1,0 +1,126 @@
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include "geometry_msgs/Twist.h"
+#include <sstream>
+#include <stdio.h>
+#include <iostream>
+#include <algorithm>    // std::max
+#include <sensor_msgs/Joy.h>
+#define BURGER_MAX_LIN_VEL  0.22
+#define BURGER_MAX_ANG_VEL  2.84
+
+#define LIN_VEL_STEP_SIZE  0.01
+#define ANG_VEL_STEP_SIZE  0.1
+
+#define msg " Control Your ROBoT!\n---------------------------\nMoving around:\nw\n   a    s    d\nx\nw/x : increase/decrease linear velocity ( ~ 0.22)\na/d : increase/decrease angular velocity (~ 2.84)\nspace key, s : force stop\nCTRL-C to quit\n"
+#define e "Communications Failed"
+
+static geometry_msgs::Twist twist_joy;
+
+float makeSimpleProfile(float initial, float input, float slop){
+    float output = initial;
+    if (input > output){
+        output = std::min( input, output + slop );
+    }
+    else if (input < output){
+        output = std::max( input, output - slop );
+    }
+    else{
+        output = input;
+    }
+
+    return output;
+}
+
+float constrain(float input,float low, float high){
+    float output = input;
+    if (output < low){
+      output = low;
+    }
+    else if( output > high){
+      output = high;
+    }
+    return output;
+
+};
+
+void joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
+{
+  twist_joy.angular.z = 2*joy->axes[2];
+  twist_joy.linear.x = joy->axes[1];
+  //vel_pub_.publish(twist);
+}
+
+float checkLinearLimitVelocity(float vel){
+
+    float  outvel = constrain(vel, -BURGER_MAX_LIN_VEL, BURGER_MAX_LIN_VEL);
+    return outvel;
+};
+float checkAngularLimitVelocity(float vel){
+    float  outvel = constrain(vel, -BURGER_MAX_ANG_VEL, BURGER_MAX_ANG_VEL);
+    return outvel;
+};
+
+int main(int argc, char **argv){
+  int status = 0;
+  float target_linear_vel   = 0.0;
+  float target_angular_vel  = 0.0;
+  float control_linear_vel  = 0.0;
+  float control_angular_vel = 0.0;
+  ros::init(argc, argv, "ros_node");
+  ros::NodeHandle n;
+  ros::Publisher pub = n.advertise<geometry_msgs::Twist>("cmd_vel",1000);
+  ros::Subscriber sub = n.subscribe<sensor_msgs::Joy>("joy", 10, &joyCallback);
+  std::cout<< msg<< std::endl;
+  while(1){
+    char key = ' ';
+    if (key == 'w'){
+        target_linear_vel = checkLinearLimitVelocity(target_linear_vel + LIN_VEL_STEP_SIZE);
+        status = status + 1;
+    }else if (key == 'x'){
+        target_linear_vel = checkLinearLimitVelocity(target_linear_vel - LIN_VEL_STEP_SIZE);
+        status = status + 1;
+    }else if (key == 'a'){
+        target_angular_vel = checkAngularLimitVelocity(target_angular_vel + ANG_VEL_STEP_SIZE);
+        status = status + 1;
+    }else if (key == 'd'){
+        target_angular_vel = checkAngularLimitVelocity(target_angular_vel - ANG_VEL_STEP_SIZE);
+        status = status + 1;
+    }else if (key == ' ' or key == 's'){
+        target_linear_vel   = 0.0;
+        control_linear_vel  = 0.0;
+        target_angular_vel  = 0.0;
+        control_angular_vel = 0.0;
+    }else{
+        if (key == '\x03')
+            break;
+    }
+    if (status == 20){
+        std::cout<< msg<< std::endl;
+        status = 0 ;
+    }
+    geometry_msgs::Twist twist;
+    control_linear_vel = makeSimpleProfile(control_linear_vel, target_linear_vel, (LIN_VEL_STEP_SIZE/2.0));
+    twist.linear.x = control_linear_vel;
+    twist.linear.y = 0.0;
+    twist.linear.z = 0.0;
+
+    control_angular_vel = makeSimpleProfile(control_angular_vel, target_angular_vel, (ANG_VEL_STEP_SIZE/2.0));
+    twist.angular.x = 0.0;
+    twist.angular.y = 0.0;
+    twist.angular.z = control_angular_vel;
+
+    pub.publish(twist_joy);
+
+  }
+  geometry_msgs::Twist twist;
+  twist.linear.x = 0.0;
+  twist.linear.y = 0.0;
+  twist.linear.z = 0.0;
+  twist.angular.x = 0.0;
+  twist.angular.y = 0.0;
+  twist.angular.z = 0.0;
+  twist_joy = twist;
+  pub.publish(twist_joy);
+
+}

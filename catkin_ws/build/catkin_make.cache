@@ -1,0 +1,2 @@
+joystick_drivers/joy:joystick_drivers/joystick_drivers:joystick_drivers/ps3joy:joystick_drivers/spacenav_node:joystick_drivers/wiimote:my_teleop
+-DCATKIN_DEVEL_PREFIX=/home/firas/ROB_MOB/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/firas/ROB_MOB/catkin_ws/install -G Unix Makefiles
