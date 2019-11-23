@@ -32,7 +32,7 @@ TeleopTurtle::TeleopTurtle():
   nh_.param("scale_linear", l_scale_, l_scale_);
 
 
-  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/rhoa/cmd_vel", 1);
+  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
 
   joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopTurtle::joyCallback, this);
@@ -42,8 +42,8 @@ TeleopTurtle::TeleopTurtle():
 void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
   geometry_msgs::Twist twist;
-  twist.angular.z = joy->axes[0];
-  twist.linear.x = joy->axes[1];
+  twist.angular.z = 0.5*joy->axes[0];
+  twist.linear.x = 0.5*joy->axes[1];
   vel_pub_.publish(twist);
 }
 

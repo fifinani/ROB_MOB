@@ -1,0 +1,8 @@
+prefix=/home/firas/ROB_MOB/catkin_ws/install
+
+Name: minilab_simulation
+Description: Description of minilab_simulation
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/firas/ROB_MOB/catkin_ws/install/lib 
+Requires: 

@@ -1,2 +1,2 @@
-joystick_drivers/joy:joystick_drivers/joystick_drivers:joystick_drivers/ps3joy:joystick_drivers/spacenav_node:joystick_drivers/wiimote:my_teleop
+PioneerModel/p3dx_control:PioneerModel/p3dx_description:PioneerModel/p3dx_gazebo:joystick_drivers/joy:joystick_drivers/joystick_drivers:joystick_drivers/ps3joy:joystick_drivers/spacenav_node:joystick_drivers/wiimote:minilab_navigation:minilab_simulation:my_teleop:pioneer3dx/pioneer3dx_description
 -DCATKIN_DEVEL_PREFIX=/home/firas/ROB_MOB/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/firas/ROB_MOB/catkin_ws/install -G Unix Makefiles
