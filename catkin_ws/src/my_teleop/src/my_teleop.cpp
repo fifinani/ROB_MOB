@@ -9,6 +9,7 @@ public:
   TeleopTurtle();
 
 private:
+  
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
 
   ros::NodeHandle nh_;
