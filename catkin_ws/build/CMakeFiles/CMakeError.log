@@ -53,3 +53,20 @@ Makefile:126: recipe for target 'cmTC_1e3d2/fast' failed
 make: *** [cmTC_1e3d2/fast] Error 2
 
 
+Determining if the include file pgm.h exists failed with the following output:
+Change Dir: /home/firas/ROB_MOB/catkin_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7275a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7275a.dir/build.make CMakeFiles/cmTC_7275a.dir/build
+make[1]: Entering directory '/home/firas/ROB_MOB/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7275a.dir/CheckIncludeFile.cxx.o
+/usr/bin/c++      -o CMakeFiles/cmTC_7275a.dir/CheckIncludeFile.cxx.o -c /home/firas/ROB_MOB/catkin_ws/build/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx
+/home/firas/ROB_MOB/catkin_ws/build/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx:1:17: fatal error: pgm.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_7275a.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_7275a.dir/CheckIncludeFile.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_7275a.dir/CheckIncludeFile.cxx.o] Error 1
+make[1]: Leaving directory '/home/firas/ROB_MOB/catkin_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7275a/fast' failed
+make: *** [cmTC_7275a/fast] Error 2
+
+

@@ -56,6 +56,17 @@ CMAKE_BINARY_DIR = /home/firas/ROB_MOB/catkin_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -77,17 +88,6 @@ install/local: preinstall
 install/local/fast: install/local
 
 .PHONY : install/local/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -166,66 +166,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_py: joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_py
-
-# fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_nodejs: joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_lisp: joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_lisp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-.PHONY : joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_eus: joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_eus
-
-# fast build rule for target.
-geometry_msgs_generate_messages_eus/fast:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
-.PHONY : geometry_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
 joystick_drivers/joy/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule:
 	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule
 .PHONY : joystick_drivers/joy/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule
@@ -284,21 +224,6 @@ diagnostic_msgs_generate_messages_eus: joystick_drivers/joy/CMakeFiles/diagnosti
 diagnostic_msgs_generate_messages_eus/fast:
 	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/build.make joystick_drivers/joy/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/build
 .PHONY : diagnostic_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
 joystick_drivers/joy/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/rule:
@@ -376,21 +301,6 @@ sensor_msgs_generate_messages_nodejs/fast:
 .PHONY : sensor_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-joystick_drivers/joy/CMakeFiles/joy_node.dir/rule:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/joy_node.dir/rule
-.PHONY : joystick_drivers/joy/CMakeFiles/joy_node.dir/rule
-
-# Convenience name for target.
-joy_node: joystick_drivers/joy/CMakeFiles/joy_node.dir/rule
-
-.PHONY : joy_node
-
-# fast build rule for target.
-joy_node/fast:
-	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/joy_node.dir/build.make joystick_drivers/joy/CMakeFiles/joy_node.dir/build
-.PHONY : joy_node/fast
-
-# Convenience name for target.
 joystick_drivers/joy/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
 	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
 .PHONY : joystick_drivers/joy/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
@@ -404,6 +314,21 @@ sensor_msgs_generate_messages_py: joystick_drivers/joy/CMakeFiles/sensor_msgs_ge
 sensor_msgs_generate_messages_py/fast:
 	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make joystick_drivers/joy/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
 .PHONY : sensor_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+joystick_drivers/joy/CMakeFiles/joy_node.dir/rule:
+	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 joystick_drivers/joy/CMakeFiles/joy_node.dir/rule
+.PHONY : joystick_drivers/joy/CMakeFiles/joy_node.dir/rule
+
+# Convenience name for target.
+joy_node: joystick_drivers/joy/CMakeFiles/joy_node.dir/rule
+
+.PHONY : joy_node
+
+# fast build rule for target.
+joy_node/fast:
+	cd /home/firas/ROB_MOB/catkin_ws/build && $(MAKE) -f joystick_drivers/joy/CMakeFiles/joy_node.dir/build.make joystick_drivers/joy/CMakeFiles/joy_node.dir/build
+.PHONY : joy_node/fast
 
 src/joy_node.o: src/joy_node.cpp.o
 
@@ -438,13 +363,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... install/local"
-	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... rebuild_cache"
-	@echo "... geometry_msgs_generate_messages_lisp"
-	@echo "... geometry_msgs_generate_messages_eus"
 	@echo "... diagnostic_msgs_generate_messages_py"
 	@echo "... list_install_components"
 	@echo "... install/strip"
@@ -452,15 +373,14 @@ help:
 	@echo "... install"
 	@echo "... diagnostic_msgs_generate_messages_cpp"
 	@echo "... diagnostic_msgs_generate_messages_eus"
-	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... diagnostic_msgs_generate_messages_nodejs"
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... edit_cache"
 	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... joy_node"
 	@echo "... sensor_msgs_generate_messages_py"
+	@echo "... joy_node"
 	@echo "... src/joy_node.o"
 	@echo "... src/joy_node.i"
 	@echo "... src/joy_node.s"
