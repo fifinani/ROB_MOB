@@ -616,6 +616,24 @@ pioneer3dx/pioneer3dx_description/preinstall:
 .PHONY : pioneer3dx/pioneer3dx_description/preinstall
 
 #=============================================================================
+# Directory level rules for directory projet_rob_mob
+
+# Convenience name for "all" pass in the directory.
+projet_rob_mob/all:
+
+.PHONY : projet_rob_mob/all
+
+# Convenience name for "clean" pass in the directory.
+projet_rob_mob/clean:
+
+.PHONY : projet_rob_mob/clean
+
+# Convenience name for "preinstall" pass in the directory.
+projet_rob_mob/preinstall:
+
+.PHONY : projet_rob_mob/preinstall
+
+#=============================================================================
 # Directory level rules for directory rrt_connect
 
 # Convenience name for "all" pass in the directory.

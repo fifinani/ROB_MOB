@@ -1,0 +1,8 @@
+prefix=/home/firas/ROB_MOB/catkin_ws/install
+
+Name: projet_rob_mob
+Description: Description of projet_rob_mob
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/firas/ROB_MOB/catkin_ws/install/lib 
+Requires: 
