@@ -1,8 +1,9 @@
 PROJET ROBOTIQUE MOBILE :
 
+Lancer tout :
 
+COMMANDES A LANCER :  roslaunch projet_rob_mob projet_rob_mob.launch
 
-COMMANDES A LANCER :
 Simu gazebo : minilab_simulation minilab_simulation.launch
 
 joy : rosrun joy joy_node
