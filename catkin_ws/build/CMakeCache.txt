@@ -485,6 +485,12 @@ rospy_DIR:PATH=/opt/ros/kinetic/share/rospy/cmake
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/kinetic/share/rostime/cmake
 
+//Value Computed by CMake
+rrt_connect_BINARY_DIR:STATIC=/home/firas/ROB_MOB/catkin_ws/build/rrt_connect
+
+//Value Computed by CMake
+rrt_connect_SOURCE_DIR:STATIC=/home/firas/ROB_MOB/catkin_ws/src/rrt_connect
+
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/kinetic/share/sensor_msgs/cmake
 
@@ -523,6 +529,12 @@ trajectory_msgs_DIR:PATH=/opt/ros/kinetic/share/trajectory_msgs/cmake
 
 //The directory containing a CMake configuration file for urdf.
 urdf_DIR:PATH=/opt/ros/kinetic/share/urdf/cmake
+
+//Value Computed by CMake
+waypoint_follow_BINARY_DIR:STATIC=/home/firas/ROB_MOB/catkin_ws/build/waypoint_follow
+
+//Value Computed by CMake
+waypoint_follow_SOURCE_DIR:STATIC=/home/firas/ROB_MOB/catkin_ws/src/waypoint_follow
 
 //Value Computed by CMake
 wiimote_BINARY_DIR:STATIC=/home/firas/ROB_MOB/catkin_ws/build/joystick_drivers/wiimote
@@ -635,7 +647,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=15
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=17
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

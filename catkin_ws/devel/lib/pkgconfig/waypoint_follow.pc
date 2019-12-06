@@ -1,0 +1,8 @@
+prefix=/home/firas/ROB_MOB/catkin_ws/devel
+
+Name: waypoint_follow
+Description: Description of waypoint_follow
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/firas/ROB_MOB/catkin_ws/devel/lib 
+Requires: 
