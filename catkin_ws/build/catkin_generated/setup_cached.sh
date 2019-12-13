@@ -7,4 +7,5 @@
 # new environment variables
 
 # modified environment variables
+export PATH="/home/firas/ROB_MOB/catkin_ws/devel/bin:$PATH"
 export PWD="/home/firas/ROB_MOB/catkin_ws/build"
