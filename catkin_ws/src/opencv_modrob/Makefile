@@ -5,13 +5,15 @@ EXEC=start
 
 all: $(EXEC)
 
-start: rrt.o
-	$(CC) -o start  rrt.o $(LDFLAGS)
 
-btree.o: btree.cpp
-	$(CC) -o bree.o -c btree.cpp
 
-rtt.o: rrt.cpp
+start: rrt.o Btree.o
+	$(CC) -o start  Btree.o rrt.o $(LDFLAGS)
+
+Btree.o: Btree.cpp Btree.h
+	$(CC) -o Btree.o -c Btree.cpp
+
+rtt.o: rrt.cpp Btree.h
 	$(CC) -o rrt.o -c rrt.cpp $(CXXFLAGS)
 
 clean:

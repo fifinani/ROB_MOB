@@ -1,0 +1,11 @@
+le but est de creer un arbre de connexion entre le point final et le point de départ
+Pour l'instant j'ai créé une structure d'arbre à 2 branches (droite et gauche). Toutes
+les fonctions ne sont pas toutes implémentées, notamment celles permettant le parcours
+
+
+fichiers inclus fdans le dossier:
+- rrt.cpp correspond au main
+- l'executable à lancer est le "start"
+- Btree.cpp fonction de la classe de l'arbre
+- Btree..h classe de l'arbre
+- map la carte
