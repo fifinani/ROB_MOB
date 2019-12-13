@@ -23,19 +23,11 @@ public:
     return list_node.size();
   }
 
-  Node getClosest(Node node){
-    int dist_x=first_node.getPoint().x-node.getPoint().x;
-    int dist_y=0;
-    int key_val=0;
-    for (size_t i = 0; i < length(this.getlength()); i++) {
+  ~Tree(){
 
-      if (dist_x > list_node[i].getPoint().x-node.getPoint().x){
-          key_val=i;
-          dist_x=list_node[i].getPoint().x-node.getPoint().x;
-      }
-
-    }
   }
+  void insert(Node node, int pos);
+
 
 
 

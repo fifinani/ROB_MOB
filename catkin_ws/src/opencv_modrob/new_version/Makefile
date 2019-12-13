@@ -5,8 +5,6 @@ EXEC=start
 
 all: $(EXEC)
 
-
-
 start: rrt.o Tree.o Node.o
 	$(CC) -o start  Tree.o Node.o rrt.o $(LDFLAGS)
 
