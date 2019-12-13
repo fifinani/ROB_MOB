@@ -5,11 +5,13 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
+using namespace std;
+
 struct node
 {
-//  int key_value;
-  node *left;
-  node *right;
+  int key_value;
+  int nb_key=length(point_list);
+  vector<node> point_list;
 //  int pixel_x;
 //  int pixel_y;
   cv::Point point;
@@ -27,6 +29,8 @@ class Btree
           */
   //arguments
     node* root;
+
+
   public:
     Btree(node* node1 );
     //~Btree();
@@ -40,6 +44,13 @@ class Btree
       return root;
     }
 
+    int getNn_key(){
+      return nb_key;
+    }
+
+    void setNb_key(int nb){
+      this->nb_key=nb;
+    }
 
     cv::Point getPoint(){
       return (*root).point;

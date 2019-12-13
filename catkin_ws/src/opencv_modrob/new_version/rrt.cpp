@@ -6,7 +6,8 @@
 #include <time.h>
 #include <iostream>
 #include "opencv/cv.h"
-#include "Btree.h"
+#include "Tree.h"
+
 
 #include "rrt.h"
 using namespace cv;
@@ -23,24 +24,15 @@ int main( int argc, char** argv )
     srand (time(NULL));
     char chemin[]="map.pgm";
     loadimage(chemin);
-    //arbre1 départ
-    node* root_tree1= (node *) malloc (sizeof (node));
-    root_tree1->key_value=1;
-    root_tree1.setNb_key(1);
-    //root_tree1->point_list=NULL;
-    root_tree1->point=Point(0,0);
-    Btree tree1(root_tree1);
+
+    Point point1(0,0);
+
+    //Node node1(point1,0,0);
+    //Tree tree1(&node1);
 
     //arbre2 destination
-    node* root_tree2= (node *) malloc (sizeof (node));
-    root_tree2->key_value=100;
-    root_tree2.setNb_key(1);
-    //root_tree2->point_list=NULL;
-    root_tree2->point=Point(1,2);
-    Btree tree2(root_tree2);
 
-    cout<<tree2.getPoint()<<endl;
-    cout<<tree1.getPoint()<<endl;
+    //Tree tree2(node2);
 
     std::vector<Point> vect_point;
     for (size_t i = 0; i < 10; i++) {
@@ -114,13 +106,13 @@ int extend(Btree tree, Point point){
 }
 */
 //trouve le plus proche voisin
-Point nearest_neighbour(Point pt, Btree t){
+/*Point nearest_neighbour(Point pt, Btree t){
   //parcours les nodes de l'arbre et compare les abscisses et ordonnées des différents points avec le point voulu
   if(t.getPoint().x<pt.x){
 
   }
 
-}
+}*/
 /*
 //fonction
 int new_state(Point x, Point x_near, Point x_new, float  commande){
