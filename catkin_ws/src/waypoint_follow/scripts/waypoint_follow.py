@@ -7,7 +7,7 @@ from nav_msgs import Odometry
 from geometry_msgs import PoseStamped
 from geometry_msgs import Pose
 from move_base_msgs import MoveBaseActionResult
-
+x = 0;
 next = false;
 def result_callback(data):
     next = true;
@@ -15,7 +15,8 @@ def result_callback(data):
 
 def nextObjective():
     PoseStamped objective;
-    objective.pose.position.x = 0;
+    x = x+10;
+    objective.pose.position.x = x;
     objective.pose.position.y = 0;
     objective.pose.position.z = 0;
     return objective;
