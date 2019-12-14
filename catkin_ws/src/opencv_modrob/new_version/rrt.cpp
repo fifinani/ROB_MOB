@@ -29,7 +29,7 @@ int main( int argc, char** argv )
     Tree tree1(node1);
     //cout<<tree1.getFirstNode().getPoint()<<endl;
 
-  //  Node node2(Point(4,5),1,1);
+    Node node2(Point(150,54),1,1);
   //  Node node3(Point(2,5),1,1);
   //  tree1.insert(node2,1);
     //tree1.insert(node3,1);
@@ -49,6 +49,10 @@ int main( int argc, char** argv )
       circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
 
     }
+    Node closest_node;
+    closest_node=tree1.getClosest(node2);
+    std::cout << "closest_node" << closest_node.getPoint()<< '\n';
+
     tree1.afficher_arbre();
 
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.

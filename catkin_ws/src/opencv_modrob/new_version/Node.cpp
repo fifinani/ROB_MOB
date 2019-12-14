@@ -20,3 +20,8 @@ Node::Node( cv::Point point, int key_value, int order_value){
   //this->node_linked=NULL;
 
 }
+
+void Node::insert(Node node){
+//  list_node.insert(list_node.begin(), pos, node);
+    node_linked.push_back(node);
+}

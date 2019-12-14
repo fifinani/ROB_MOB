@@ -24,15 +24,15 @@ Tree::Tree(Node node){
 
 }
 
- Node Tree::getClosest(Node node){
+Node Tree::getClosest(Node node){
   int dist_x=abs(first_node.getPoint().x-node.getPoint().x);
   int dist_y=0;
   int key_val=0;
   for (size_t i = 0; i < this->list_node.size(); i++) {
   //  std::cout << i << '\n';
-    std::cout << "point x ="<<this->list_node[i].getPoint().x  << '\n';
-    std::cout << "node x=" << node.getPoint().x << '\n';
-    std::cout <<"dist=" <<abs(this->list_node[i].getPoint().x-node.getPoint().x) << '\n';
+    //std::cout << "point x ="<<this->list_node[i].getPoint().x  << '\n';
+    //std::cout << "node x=" << node.getPoint().x << '\n';
+    //std::cout <<"dist=" <<abs(this->list_node[i].getPoint().x-node.getPoint().x) << '\n';
     if ( dist_x > abs(this->list_node[i].getPoint().x-node.getPoint().x)){
         key_val=i;
         dist_x=abs(this->list_node[i].getPoint().x-node.getPoint().x);

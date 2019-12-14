@@ -39,5 +39,16 @@ public:
         return node_linked.size();
       }
 
+      void insert(Node node);
 
+      Node getNodeAt(int i){
+        return node_linked[i];
+      }
+
+      void afficher_liste_noeuds(){
+        std::cout << "liste noeuds=" << '\n';
+        for (size_t i = 0; i< node_linked.size() ; i++) {
+          std::cout << getNodeAt(i).getPoint() << '\n';
+        }
+      }
 };
