@@ -9,13 +9,14 @@ using namespace std;
 
 
 class Node{
-  private:
+public:
     cv::Point point;
     int key_value;
     int order_value;
     std::vector<Node> node_linked;
 
   public:
+      Node();
       Node(cv::Point point, int key_value, int order_value);
 
       cv::Point getPoint(){

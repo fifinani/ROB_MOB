@@ -7,8 +7,6 @@
 #include <iostream>
 #include "opencv/cv.h"
 #include "Tree.h"
-
-
 #include "rrt.h"
 using namespace cv;
 using namespace std;
@@ -25,26 +23,38 @@ int main( int argc, char** argv )
     char chemin[]="map.pgm";
     loadimage(chemin);
 
-    Point point1(0,0);
+    Point point1(50,50);
 
-    //Node node1(point1,0,0);
-    //Tree tree1(&node1);
+    Node node1(point1,0,0);
+    Tree tree1(node1);
+    //cout<<tree1.getFirstNode().getPoint()<<endl;
 
-    //arbre2 destination
+  //  Node node2(Point(4,5),1,1);
+  //  Node node3(Point(2,5),1,1);
+  //  tree1.insert(node2,1);
+    //tree1.insert(node3,1);
+  //  cout <<"get closest node"<<endl;
+  //  Node node4;
 
-    //Tree tree2(node2);
+    //node4=tree1.getClosest(node3);
+    //std::cout << "node4= "<<node4.getPoint() << '\n';
 
-    std::vector<Point> vect_point;
-    for (size_t i = 0; i < 10; i++) {
-      vect_point.push_back(Point(rand()%width, rand()%height  ) );
-      circle(img_bin, vect_point[i],5, Scalar(255,0,00),-1);
+    //cout<<tree1.getList().size()<<endl;
+    //cout<<tree1.getNodeAt(0).getPoint()<<endl;
+
+  //  std::vector<Point> vect_point;
+    for (size_t i = 0; i <= 8; i++) {
+      tree1.insert( Node( Point(rand()%width, rand()%height),i,i ) ,1);
+    //  vect_point.push_back(Point(rand()%width, rand()%height  ) );
+      circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
 
     }
+    tree1.afficher_arbre();
 
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", image );                   // Show our image inside it.
     //imshow("gris", img_grey);
-    imshow("bin", img_bin);
+    //imshow("bin", img_bin);
     waitKey(0);                                          // Wait for a keystroke in the window
 
     return 0;
