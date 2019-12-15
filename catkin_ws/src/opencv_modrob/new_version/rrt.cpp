@@ -24,13 +24,10 @@ int main( int argc, char** argv )
     loadimage(chemin);
 
     Point point1(50,50);
-
     Node node1(point1,0,0);
     Tree tree1(node1);
-    //cout<<tree1.getFirstNode().getPoint()<<endl;
-
     Node node2(Point(150,54),1,1);
-  //  Node node3(Point(2,5),1,1);
+    Node node3(Point(152,5),1,1);
   //  tree1.insert(node2,1);
     //tree1.insert(node3,1);
   //  cout <<"get closest node"<<endl;
@@ -43,18 +40,47 @@ int main( int argc, char** argv )
     //cout<<tree1.getNodeAt(0).getPoint()<<endl;
 
   //  std::vector<Point> vect_point;
-    for (size_t i = 0; i <= 8; i++) {
-      tree1.insert( Node( Point(rand()%width, rand()%height),i,i ) ,1);
+    for (size_t i = 1; i <= 8; i++) {
+      tree1.insert( Node( Point(rand()%width, rand()%height),i,i ) );
     //  vect_point.push_back(Point(rand()%width, rand()%height  ) );
       circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
 
     }
-    Node closest_node;
+    circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
+    circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
+    circle(image, node3.getPoint(),5, Scalar(0,255,255),-1);
+
+    int closest_node, closest_node2;
     closest_node=tree1.getClosest(node2);
-    std::cout << "closest_node" << closest_node.getPoint()<< '\n';
+    tree1.getNodeAt(closest_node).insert(node2);
+    std::cout << "key=" << tree1.getNodeAt(closest_node).getKey()<<'\n';
+    std::cout << "closest_node=" << closest_node<< '\n';
+    tree1.getNodeAt(closest_node).setKey(50);
+    std::cout << "key=" << tree1.getNodeAt(closest_node).getKey()<<'\n';
+    tree1.insert(node2);
+    tree1.getNodeAt(closest_node).afficher_liste_noeuds();
 
+    circle(image,tree1.getNodeAt(closest_node).getPoint() ,5, Scalar(0,200,255),-1);
+
+
+
+    /*********************************************************/
+    closest_node2=tree1.getClosest(node3);
+    tree1.getNodeAt(closest_node2).insert(node3);
+    std::cout << "key=" << tree1.getNodeAt(closest_node2).getKey()<<'\n';
+    std::cout << "closest_node=" << closest_node2<< '\n';
+    tree1.getNodeAt(closest_node2).setKey(50);
+    std::cout << "key=" << tree1.getNodeAt(closest_node2).getKey()<<'\n';
+    tree1.insert(node3);
+    tree1.getNodeAt(closest_node2).afficher_liste_noeuds();
+
+
+    /**********************************************************/
+
+
+    //affiche arbre complet
     tree1.afficher_arbre();
-
+    //affiche fenetre
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", image );                   // Show our image inside it.
     //imshow("gris", img_grey);

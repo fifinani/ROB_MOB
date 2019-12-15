@@ -17,8 +17,8 @@ public:
 
 public:
   Tree();
-
   Tree(Node node);
+
 
   Node getFirstNode(){
     return first_node;
@@ -30,14 +30,14 @@ public:
 
   ~Tree();
 
-  void insert(Node node, int pos);
-  Node getClosest(Node node);
+  void insert(Node node);
+  int getClosest(Node node);
 
   vector<Node> getList(){
     return list_node;
   };
 
-  Node getNodeAt(int i){
+  Node& getNodeAt(int i){
     return list_node[i];
   }
 

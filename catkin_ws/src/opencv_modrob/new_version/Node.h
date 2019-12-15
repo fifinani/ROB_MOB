@@ -35,20 +35,33 @@ public:
 
       }
 
+      void  setKey(int key_value){
+        this->key_value=key_value;
+      }
+
+      int getKey(){
+        return key_value;
+      }
+
       int getlength(){
         return node_linked.size();
       }
 
       void insert(Node node);
 
-      Node getNodeAt(int i){
+      Node& getNodeAt(int i){
         return node_linked[i];
       }
 
+      Node& getNodeAt2(int i){
+        return (node_linked[i]);
+      }
+
       void afficher_liste_noeuds(){
-        std::cout << "liste noeuds=" << '\n';
+        std::cout << "liste noeuds=";
         for (size_t i = 0; i< node_linked.size() ; i++) {
           std::cout << getNodeAt(i).getPoint() << '\n';
         }
+        //std::cout << "fin affiche liste" << '\n';
       }
 };
