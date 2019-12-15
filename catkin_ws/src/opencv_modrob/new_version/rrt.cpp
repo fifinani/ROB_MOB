@@ -26,8 +26,9 @@ int main( int argc, char** argv )
     Point point1(50,50);
     Node node1(point1,0,0);
     Tree tree1(node1);
-    Node node2(Point(150,54),1,1);
+    Node node2(Point(150,150),1,1);
     Node node3(Point(152,5),1,1);
+    Node node_final(Point(300,300),1,1);
   //  tree1.insert(node2,1);
     //tree1.insert(node3,1);
   //  cout <<"get closest node"<<endl;
@@ -38,10 +39,18 @@ int main( int argc, char** argv )
 
     //cout<<tree1.getList().size()<<endl;
     //cout<<tree1.getNodeAt(0).getPoint()<<endl;
+    int closest_node, closest_node2;
+    Node new_node;
 
   //  std::vector<Point> vect_point;
     for (size_t i = 1; i <= 8; i++) {
-      tree1.insert( Node( Point(rand()%width, rand()%height),i,i ) );
+
+      new_node=Node( Point(rand()%width, rand()%height),i,i );
+      closest_node=tree1.getClosest(new_node);
+      std::cout << "closest_node=" << closest_node<< '\n';
+      tree1.getNodeAt(closest_node).insert(new_node);
+      tree1.insert( new_node );
+      tree1.getNodeAt(closest_node).afficher_liste_noeuds();
     //  vect_point.push_back(Point(rand()%width, rand()%height  ) );
       circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
 
@@ -49,8 +58,7 @@ int main( int argc, char** argv )
     circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
     circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
     circle(image, node3.getPoint(),5, Scalar(0,255,255),-1);
-
-    int closest_node, closest_node2;
+/*
     closest_node=tree1.getClosest(node2);
     tree1.getNodeAt(closest_node).insert(node2);
     std::cout << "key=" << tree1.getNodeAt(closest_node).getKey()<<'\n';
@@ -61,11 +69,15 @@ int main( int argc, char** argv )
     tree1.getNodeAt(closest_node).afficher_liste_noeuds();
 
     circle(image,tree1.getNodeAt(closest_node).getPoint() ,5, Scalar(0,200,255),-1);
-
-
-
+*/    //line(image, node1.getPoint(), node2.getPoint(), Scalar(0,0,0), 2, 8, 0);
+    tree1.getFirstNode().draw_line(image);
+    std::cout << "first node point"<< tree1.getFirstNode().getPoint()<< '\n';
+    std::cout << "first node list" << '\n';
+    tree1.getFirstNode().afficher_liste_noeuds();
+    std::cout << "all node list" << '\n';
+    tree1.afficher_liste_noeuds_linked();
     /*********************************************************/
-    closest_node2=tree1.getClosest(node3);
+  /*  closest_node2=tree1.getClosest(node3);
     tree1.getNodeAt(closest_node2).insert(node3);
     std::cout << "key=" << tree1.getNodeAt(closest_node2).getKey()<<'\n';
     std::cout << "closest_node=" << closest_node2<< '\n';
@@ -74,7 +86,7 @@ int main( int argc, char** argv )
     tree1.insert(node3);
     tree1.getNodeAt(closest_node2).afficher_liste_noeuds();
 
-
+*/
     /**********************************************************/
 
 

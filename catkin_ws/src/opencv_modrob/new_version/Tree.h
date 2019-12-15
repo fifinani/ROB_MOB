@@ -20,7 +20,7 @@ public:
   Tree(Node node);
 
 
-  Node getFirstNode(){
+  Node& getFirstNode(){
     return first_node;
   }
 
@@ -31,6 +31,7 @@ public:
   ~Tree();
 
   void insert(Node node);
+
   int getClosest(Node node);
 
   vector<Node> getList(){
@@ -48,4 +49,18 @@ public:
     }
   }
 
+  void afficher_liste_noeuds_linked(){
+    for (size_t i = 0; i < list_node.size(); i++) {
+      std::cout << "node["<<i << "]";
+      getNodeAt(i).afficher_liste_noeuds();
+    }
+
+  }
+/*  void draw(){
+    for (size_t i = 0; i < count; i++) {
+
+    }
+
+  }
+*/
 };

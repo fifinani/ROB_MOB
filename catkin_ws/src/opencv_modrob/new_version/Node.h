@@ -53,15 +53,27 @@ public:
         return node_linked[i];
       }
 
-      Node& getNodeAt2(int i){
-        return (node_linked[i]);
-      }
-
       void afficher_liste_noeuds(){
         std::cout << "liste noeuds=";
         for (size_t i = 0; i< node_linked.size() ; i++) {
-          std::cout << getNodeAt(i).getPoint() << '\n';
+          std::cout << getNodeAt(i).getPoint() ;
         }
-        //std::cout << "fin affiche liste" << '\n';
+        std::cout << "" << '\n';
+      }
+
+      std::vector<Node> get_linkedList(){
+        return node_linked;
+
+      }
+
+
+      void draw_line(Mat img){
+        int size=get_linkedList().size();
+        if(size>=2){
+          for (size_t i = 0; i < size ; i++) {
+            std::cout << "size sup 2" << '\n';
+            line(img, getNodeAt(i).getPoint(), getNodeAt(i+1).getPoint(), Scalar(0,0,0), 2, 8, 0);
+          }
+        }
       }
 };
