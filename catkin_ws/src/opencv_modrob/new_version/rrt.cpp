@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
@@ -8,6 +9,7 @@
 #include "opencv/cv.h"
 #include "Tree.h"
 #include "rrt.h"
+
 using namespace cv;
 using namespace std;
 
@@ -41,23 +43,37 @@ int main( int argc, char** argv )
     //cout<<tree1.getNodeAt(0).getPoint()<<endl;
     int closest_node, closest_node2;
     Node new_node;
+    bool reached=false;
 
+
+
+
+    int i=1;
   //  std::vector<Point> vect_point;
-    for (size_t i = 1; i <= 8; i++) {
+    //for (size_t i = 1; i <= 4; i++) {
+    while(!reached){
 
       new_node=Node( Point(rand()%width, rand()%height),i,i );
+
+      if( (abs(new_node.getPoint().x-node3.getPoint().x)<20)&&(abs(new_node.getPoint().y-node3.getPoint().y)<20)  ){
+        reached=true;
+        std::cout << "reached" << '\n';
+      }
+
       closest_node=tree1.getClosest(new_node);
       std::cout << "closest_node=" << closest_node<< '\n';
       tree1.getNodeAt(closest_node).insert(new_node);
       tree1.insert( new_node );
-      tree1.getNodeAt(closest_node).afficher_liste_noeuds();
+    //  tree1.getNodeAt(closest_node).afficher_liste_noeuds();
     //  vect_point.push_back(Point(rand()%width, rand()%height  ) );
       circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
+      circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
+      circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
+      circle(image, node3.getPoint(),5, Scalar(0,255,255),-1);
+      usleep(5000);
+      i++;
 
     }
-    circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
-    circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
-    circle(image, node3.getPoint(),5, Scalar(0,255,255),-1);
 /*
     closest_node=tree1.getClosest(node2);
     tree1.getNodeAt(closest_node).insert(node2);
@@ -70,11 +86,16 @@ int main( int argc, char** argv )
 
     circle(image,tree1.getNodeAt(closest_node).getPoint() ,5, Scalar(0,200,255),-1);
 */    //line(image, node1.getPoint(), node2.getPoint(), Scalar(0,0,0), 2, 8, 0);
-    tree1.getFirstNode().draw_line(image);
-    std::cout << "first node point"<< tree1.getFirstNode().getPoint()<< '\n';
-    std::cout << "first node list" << '\n';
-    tree1.getFirstNode().afficher_liste_noeuds();
-    std::cout << "all node list" << '\n';
+    std::cout << tree1.getList().size()<< '\n';
+    int r=0, g=0, b=0;
+    for (size_t i = 0; i <tree1.getList().size(); i++) {
+      tree1.getNodeAt(i).draw_line(image,rand()%255, rand()%255, rand()%255 );
+
+    }
+    //std::cout << "first node point"<< tree1.getFirstNode().getPoint()<< '\n';
+    //std::cout << "first node list" << '\n';
+    //tree1.getNodeAt(0).afficher_liste_noeuds();
+    //std::cout << "all node list" << '\n';
     tree1.afficher_liste_noeuds_linked();
     /*********************************************************/
   /*  closest_node2=tree1.getClosest(node3);
@@ -94,7 +115,8 @@ int main( int argc, char** argv )
     tree1.afficher_arbre();
     //affiche fenetre
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Display window", image );                   // Show our image inside it.
+    imshow( "Display window", image );
+    // Show our image inside it.
     //imshow("gris", img_grey);
     //imshow("bin", img_bin);
     waitKey(0);                                          // Wait for a keystroke in the window

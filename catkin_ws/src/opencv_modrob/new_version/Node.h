@@ -61,18 +61,24 @@ public:
         std::cout << "" << '\n';
       }
 
-      std::vector<Node> get_linkedList(){
+      std::vector<Node>& get_linkedList(){
         return node_linked;
 
       }
 
 
-      void draw_line(Mat img){
+      void draw_line(Mat img, int r, int g,int b){
         int size=get_linkedList().size();
-        if(size>=2){
-          for (size_t i = 0; i < size ; i++) {
-            std::cout << "size sup 2" << '\n';
-            line(img, getNodeAt(i).getPoint(), getNodeAt(i+1).getPoint(), Scalar(0,0,0), 2, 8, 0);
+
+
+        if(size>=1){
+          line(img, getPoint(), getNodeAt(0).getPoint(), Scalar(r,g,b), 2, 8, 0);
+          for (size_t i = 0; i < size-1 ; i++) {
+          //  std::cout << "size= " << size<< '\n';
+            //afficher_liste_noeuds();
+            std::cout << getNodeAt(i).getPoint() << '\n';
+            std::cout << getNodeAt(i+1).getPoint() << '\n';
+            line(img, getNodeAt(i).getPoint(), getNodeAt(i+1).getPoint(), Scalar(r,g,b), 2, 8, 0);
           }
         }
       }
