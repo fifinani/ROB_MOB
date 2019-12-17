@@ -44,7 +44,7 @@ int main( int argc, char** argv )
     int closest_node, closest_node2;
     Node new_node;
     bool reached=false;
-
+    namedWindow( "Display window", WINDOW_AUTOSIZE );
 
 
 
@@ -55,25 +55,49 @@ int main( int argc, char** argv )
 
       new_node=Node( Point(rand()%width, rand()%height),i,i );
 
-      if( (abs(new_node.getPoint().x-node3.getPoint().x)<20)&&(abs(new_node.getPoint().y-node3.getPoint().y)<20)  ){
+      if( new_node.get_distance(node2)<20  ){
         reached=true;
-        std::cout << "reached" << '\n';
+      //  tree1.insert(node2);
+        std::cout << "REACH" << '\n';
+        new_node.insert(node2);
+        std::cout << new_node.getNodeAt(0).getPoint() << '\n';
+
       }
 
+      //usleep(50000);
       closest_node=tree1.getClosest(new_node);
-      std::cout << "closest_node=" << closest_node<< '\n';
+//      std::cout << "closest_node=" << closest_node<< '\n';
       tree1.getNodeAt(closest_node).insert(new_node);
       tree1.insert( new_node );
-    //  tree1.getNodeAt(closest_node).afficher_liste_noeuds();
-    //  vect_point.push_back(Point(rand()%width, rand()%height  ) );
+      if(reached==true){
+          tree1.insert(node2);
+      }
+      //tree1.getNodeAt(closest_node).afficher_liste_noeuds();
+      //vect_point.push_back(Point(rand()%width, rand()%height  ) );
       circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
       circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
       circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
       circle(image, node3.getPoint(),5, Scalar(0,255,255),-1);
-      usleep(5000);
+
       i++;
+      //destroyAllWindows();
+      imshow( "Display window", image );
+      tree1.draw_line_tree(image);
+
 
     }
+
+    std::vector<int> indices;
+    //tree1.chemin(node1, node2);
+    //std::cout<<"length"<<tree1.getlength()  << '\n';
+//    imshow( "Display window", image );
+
+  //  tree1.draw_pathway(image, indices) ;
+
+    /*for (int i = 0; i < indices.size(); i++) {
+        std::cout << tree1.getNodeAt(indices[i]).getPoint() << '\n';
+    }
+    */
 /*
     closest_node=tree1.getClosest(node2);
     tree1.getNodeAt(closest_node).insert(node2);
@@ -86,12 +110,13 @@ int main( int argc, char** argv )
 
     circle(image,tree1.getNodeAt(closest_node).getPoint() ,5, Scalar(0,200,255),-1);
 */    //line(image, node1.getPoint(), node2.getPoint(), Scalar(0,0,0), 2, 8, 0);
-    std::cout << tree1.getList().size()<< '\n';
-    int r=0, g=0, b=0;
-    for (size_t i = 0; i <tree1.getList().size(); i++) {
-      tree1.getNodeAt(i).draw_line(image,rand()%255, rand()%255, rand()%255 );
+    //std::cout << tree1.getList().size()<< '\n';
 
-    }
+
+
+    /*for (size_t i = 0; i <tree1.getList().size(); i++) {
+      tree1.getNodeAt(i).draw_line(image,rand()%255, rand()%255, rand()%255 );
+    }**/
     //std::cout << "first node point"<< tree1.getFirstNode().getPoint()<< '\n';
     //std::cout << "first node list" << '\n';
     //tree1.getNodeAt(0).afficher_liste_noeuds();
@@ -114,12 +139,11 @@ int main( int argc, char** argv )
     //affiche arbre complet
     tree1.afficher_arbre();
     //affiche fenetre
-    namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Display window", image );
+    //  imshow( "Display window", image );
     // Show our image inside it.
     //imshow("gris", img_grey);
     //imshow("bin", img_bin);
-    waitKey(0);                                          // Wait for a keystroke in the window
+  //  waitKey(0);                                          // Wait for a keystroke in the window
 
     return 0;
 }

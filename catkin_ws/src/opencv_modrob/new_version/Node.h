@@ -16,9 +16,12 @@ public:
     std::vector<Node> node_linked;
 
   public:
+      //constructeur et destructeur
       Node();
       Node(cv::Point point, int key_value, int order_value);
+      ~Node(){}
 
+      //fetter & setter
       cv::Point getPoint(){
         return point;
       }
@@ -31,10 +34,6 @@ public:
         return order_value;
       }
 
-      ~Node(){
-
-      }
-
       void  setKey(int key_value){
         this->key_value=key_value;
       }
@@ -43,16 +42,20 @@ public:
         return key_value;
       }
 
+      //récupère la longueur de la liste des noeuds liés
       int getlength(){
         return node_linked.size();
       }
 
-      void insert(Node node);
-
+      //récupère le noeud lié à la  position i
       Node& getNodeAt(int i){
         return node_linked[i];
       }
 
+      void insert(Node node);
+
+
+      //affiche tous les noeuds liés
       void afficher_liste_noeuds(){
         std::cout << "liste noeuds=";
         for (size_t i = 0; i< node_linked.size() ; i++) {
@@ -61,25 +64,18 @@ public:
         std::cout << "" << '\n';
       }
 
+      //recupere la liste des noeuds liés
       std::vector<Node>& get_linkedList(){
         return node_linked;
 
       }
 
+      //trace les lignes entre tous les noeuds liés
+      void draw_line(Mat img, int r, int g,int b);
 
-      void draw_line(Mat img, int r, int g,int b){
-        int size=get_linkedList().size();
+      int get_distance( Node node2);
 
+      int compare_node(Node node);
 
-        if(size>=1){
-          line(img, getPoint(), getNodeAt(0).getPoint(), Scalar(r,g,b), 2, 8, 0);
-          for (size_t i = 0; i < size-1 ; i++) {
-          //  std::cout << "size= " << size<< '\n';
-            //afficher_liste_noeuds();
-            std::cout << getNodeAt(i).getPoint() << '\n';
-            std::cout << getNodeAt(i+1).getPoint() << '\n';
-            line(img, getNodeAt(i).getPoint(), getNodeAt(i+1).getPoint(), Scalar(r,g,b), 2, 8, 0);
-          }
-        }
-      }
+      int find_node(Node node1);
 };
