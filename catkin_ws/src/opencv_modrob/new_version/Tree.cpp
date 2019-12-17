@@ -106,7 +106,9 @@ std::vector<int>& Tree::chemin(Node node0, Node node_final){
 }
 
 void Tree::draw_pathway(Mat image, std::vector<int> vect_indices){
-    for (size_t i = 0; i <vect_indices.size(); i++) {
-      getNodeAt(vect_indices[i]).draw_line(image,0, 0, 255 );
+    for (size_t i = 0; i <vect_indices.size()-1; i++) {
+      //line(image, getNodeAt(vect_indices[i]).getPoint(),getNodeAt(vect_indices[i+1]).getPoint(), Scalar(0,0,255), 2, 8, 0);
+      std::cout << "taille=" << vect_indices.size()<<'\n';
+      //getNodeAt(vect_indices[i]).draw_line(image,0, 0, 255 );
   }
 }

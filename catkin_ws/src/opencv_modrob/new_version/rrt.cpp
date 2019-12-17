@@ -81,18 +81,18 @@ int main( int argc, char** argv )
 
       i++;
       //destroyAllWindows();
-      imshow( "Display window", image );
+      //imshow( "Display window", image );
       tree1.draw_line_tree(image);
 
 
     }
 
     std::vector<int> indices;
-    //tree1.chemin(node1, node2);
+    indices=tree1.chemin(node1, node2);
     //std::cout<<"length"<<tree1.getlength()  << '\n';
 //    imshow( "Display window", image );
 
-  //  tree1.draw_pathway(image, indices) ;
+    tree1.draw_pathway(image, indices) ;
 
     /*for (int i = 0; i < indices.size(); i++) {
         std::cout << tree1.getNodeAt(indices[i]).getPoint() << '\n';
@@ -139,11 +139,11 @@ int main( int argc, char** argv )
     //affiche arbre complet
     tree1.afficher_arbre();
     //affiche fenetre
-    //  imshow( "Display window", image );
+      imshow( "Display window", image );
     // Show our image inside it.
     //imshow("gris", img_grey);
     //imshow("bin", img_bin);
-  //  waitKey(0);                                          // Wait for a keystroke in the window
+    waitKey(0);                                          // Wait for a keystroke in the window
 
     return 0;
 }
