@@ -67,48 +67,60 @@ void Tree::draw_line_tree(Mat image){
 }
 
 
-std::vector<int>& Tree::chemin(Node node0, Node node_final){
+void Tree::chemin(std::vector<int>& indices, Node node0, Node node_final){
     std::vector<int> vect_ind;
     Node node_cmp=node_final;
     bool reach=false;
     int it=0;
-
+    int found=0;
+    affiche_vect(indices);
     while ((reach==false)){
-        std::cout << "reach="<<reach << '\n';
+        //std::cout << "reach="<<reach << '\n';
         affiche_vect(vect_ind);
+        found=0;
+        for (size_t i = 0; i < getlength(); i++) {
+            if (found==0){
+                std::cout << "arbre  ["<<i <<"]"<< '\n';
+                it=0;
+                it=getNodeAt(i).find_node(node_cmp);
+                if(it==0){
+                        std::cout << "not found" << '\n';
+                }
+                else if (it==1){
+                    std::cout << "FOUND IT" << '\n';
+                    vect_ind.push_back(i);
+                    node_cmp=getNodeAt(i);
+                    found=1;
+
+                }
+            }
+
+        }
         if (find_elem(vect_ind,0)==1){
+            std::cout << "0 present" << '\n';
             reach=true;
         }
-        for (size_t i = 0; i < getlength(); i++) {
-            std::cout << "arbre  ["<<i <<"]"<< '\n';
-            it=0;
-            it=getNodeAt(i).find_node(node_cmp);
-            if(it==0)
-                std::cout << "not found" << '\n';
-            else if (it==1){
-                std::cout << "FOUND IT" << '\n';
-                vect_ind.push_back(i);
-                node_cmp=getNodeAt(i);
 
-            }
-        }
-        //waitKey(0);
-    /*    std::cout << "it =" << it<< '\n';
+
+            //    waitKey(0);
+        std::cout << "it =" << it<< '\n';
+        std::cout<<"size=" << vect_ind.size() << '\n';
+    /*
       //  it=2;
         std::cout << "node cmp=" << node_cmp.getPoint()<< '\n';
         std::cout  << '\n';
-        std::cout<<"size=" << vect_ind.size() << '\n';*/
+        */
       }
       affiche_vect(vect_ind);
-
-      return vect_ind;
+      indices=vect_ind;
+      return ;//vect_ind;
 
 }
 
 void Tree::draw_pathway(Mat image, std::vector<int> vect_indices){
     for (size_t i = 0; i <vect_indices.size()-1; i++) {
-      //line(image, getNodeAt(vect_indices[i]).getPoint(),getNodeAt(vect_indices[i+1]).getPoint(), Scalar(0,0,255), 2, 8, 0);
-      std::cout << "taille=" << vect_indices.size()<<'\n';
+      line(image, getNodeAt(vect_indices[i]).getPoint(),getNodeAt(vect_indices[i+1]).getPoint(), Scalar(0,0,255), 2, 8, 0);
+      //std::cout << "taille=" << vect_indices.size();
       //getNodeAt(vect_indices[i]).draw_line(image,0, 0, 255 );
   }
 }

@@ -72,9 +72,9 @@ int Node::compare_node(Node node){
 
 int Node::find_node(Node node1){
     for (size_t i = 0; i < get_linkedList().size(); i++) {
-        std::cout << "i find node =" <<i << '\n';
+        //std::cout << "i find node =" <<i << '\n';
         if(getNodeAt(i).compare_node(node1)==1){
-            std::cout << "we find it" << '\n';
+            //std::cout << "we find it" << '\n';
             return 1;
         }
     }

@@ -78,4 +78,25 @@ public:
       int compare_node(Node node);
 
       int find_node(Node node1);
+
+      //verifie que le pixel n'est pas blanc
+      int needLink(Mat image){
+          int val=int(image.at<uchar>(getPoint()) );
+          int v= int(val==210);
+          std::cout << "point "<< getPoint()<<"pixel=" << v<<"val="<<val << '\n';
+          if (v==0) {
+              return 0;
+          }
+          else
+            return 1 ;
+
+      }
+
+      int noObstacle(Mat image, Node node){
+          for (size_t i = 0; i < count; i++) {
+              /* code */
+          }
+
+
+      }
 };

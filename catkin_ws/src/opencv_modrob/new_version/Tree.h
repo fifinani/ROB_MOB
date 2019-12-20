@@ -54,6 +54,7 @@ public:
   }
 
   void afficher_liste_noeuds_linked(){
+      std::cout << "afficher liste des noeuds liés" << '\n';
     for (size_t i = 0; i < list_node.size(); i++) {
       std::cout<< "node["<<i << "]"<<getNodeAt(i).getPoint();
       getNodeAt(i).afficher_liste_noeuds();
@@ -62,7 +63,8 @@ public:
 
   void draw_line_tree(Mat image);
 
-  std::vector<int>& chemin(Node node0, Node node_final);
+  //std::vector<int>& chemin(Node node0, Node node_final);
+  void chemin(std::vector<int>& indices, Node node0, Node node_final);
 
   int find_elem(std::vector<int> vect, int k){
 
