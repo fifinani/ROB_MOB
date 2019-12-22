@@ -83,7 +83,7 @@ public:
       int needLink(Mat image){
           int val=int(image.at<uchar>(getPoint()) );
           int v= int(val==210);
-          std::cout << "point "<< getPoint()<<"pixel=" << v<<"val="<<val << '\n';
+          //std::cout << "point "<< getPoint()<<"pixel=" << v<<"val="<<val << '\n';
           if (v==0) {
               return 0;
           }
@@ -126,12 +126,12 @@ public:
           double xf=0;
           double yf=0;
           double erreur=0;
-          std::cout << "xyz="<<a<<","<<b<<"," <<c<< '\n';
+          //std::cout << "xyz="<<a<<","<<b<<"," <<c<< '\n';
         //  float dist= sqrt(pow((0-x1),2)+pow((0-y1),2));
           bool cond=true;
           if(b==0){
                 cond=false;
-                std::cout << "b=0" << '\n';
+            //    std::cout << "b=0" << '\n';
             }
           double dist=0.0;
           for (size_t i = 0; i < width; i++) {
@@ -155,7 +155,7 @@ public:
                   erreur=abs((double)dist-q);
                   //std::cout << "erreur= "<<(double)(dist-q) << '\n';
                   if(erreur<.5){
-                      std::cout << "erreur= "<<(dist-(float)q) << '\n';
+                    //  std::cout << "erreur= "<<(dist-(float)q) << '\n';
                       x=i;
                       y=(c-a*i)/b;
                       nb++;
@@ -165,13 +165,13 @@ public:
                  }
                  //std::cout << "x="<<x<<",y="<<y << '\n';
                  if (dir==0 && x>getPoint().x){// si a droite
-                        std::cout << " node à droite" << '\n';
+                        //std::cout << " node à droite" << '\n';
                          xf=x;
                          yf=y;
 
                  }
                  if (dir==1 && (x<getPoint().x)){// si a gauche
-                        std::cout << "node à gauche" << '\n';
+                        //std::cout << "node à gauche" << '\n';
                         xf=x;
                         yf=y;
 

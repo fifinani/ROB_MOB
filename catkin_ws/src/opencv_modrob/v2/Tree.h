@@ -70,11 +70,11 @@ public:
       // Check if the element k is in vector
       std::vector<int>::iterator it = std::find(vect.begin(), vect.end(), k);
       if (it != vect.end()){
-          std::cout << "Element Found" << std::endl;
+          //std::cout << "Element Found" << std::endl;
           return 1;
       }
       else{
-          std::cout << "Element Not Found" << std::endl;
+         // std::cout << "Element Not Found" << std::endl;
           return 0;
       }
       waitKey(0);

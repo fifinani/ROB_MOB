@@ -23,7 +23,7 @@ int x_rand[10], y_rand[10];
 int main( int argc, char** argv )
 {
     srand (time(NULL));
-    char chemin[]="maptest.pgm";
+    char chemin[]="map2.pgm";
     loadimage(chemin);
 
     //initialisation de l'arbre et des points de départ et d'arrivé
@@ -41,6 +41,9 @@ int main( int argc, char** argv )
     Node node_added;//point reellement ajouté
     bool reached=false;//condition de fin de boucle (si le nouveau point aux alentours du point finale)
     namedWindow( "Display window", WINDOW_AUTOSIZE );
+    // dilatation
+    Mat element1 = getStructuringElement( MORPH_ELLIPSE,Size( 10,10),Point(-1,-1) );
+    dilate(img_bin, img_bin, element1, Point(-1,-1), 1, BORDER_CONSTANT);
 
     Point new_point;
     int q=10;
@@ -53,38 +56,45 @@ int main( int argc, char** argv )
 
 
         new_node=Node( Point(rand()%width, rand()%height),i,i );
-        std::cout << "width="<<width << '\n';
-        std::cout << "rand node ="<<new_node.getPoint() << '\n';
+    //    std::cout << "width="<<width << '\n';
+    //    std::cout << "rand node ="<<new_node.getPoint() << '\n';
         //si pixel noir==pas sur un ostacle
-        if(node_added.needLink(img_bin)==0){
 
 
-        }
-        else
-            std::cout << "SUR NOIR" << '\n';
+
+
+        //else
+        //    std::cout << "SUR NOIR" << '\n';
 
 /////////////////////////////////////////////////////
         closest_node=tree1.getClosest(new_node);
         //circle(image, new_node.getPoint(),5, Scalar(0,255,255),-1);
-        std::cout << "closest node ="<<tree1.getNodeAt(closest_node).getPoint() << '\n';
+    //    std::cout << "closest node ="<<tree1.getNodeAt(closest_node).getPoint() << '\n';
 
     //    std::vector<int> v=node1.findEquation(node2);
     //    tree1.affiche_vect(v);
 
         dir=tree1.getNodeAt(closest_node).direction(new_node);
 
-        if (dir==1)
-            std::cout << "gauche"<< '\n';
-        if (dir==0)
-            std::cout << "droite" << '\n';
+        if (dir==1){
+            //std::cout << "gauche"<< '\n';
+        }
+
+        if (dir==0){
+            //std::cout << "droite" << '\n';
+        }
         new_point=tree1.getNodeAt(closest_node).NewPos(new_node, q, width, dir);
         //circle(image, new_point,5, Scalar(0,255,255),-1);
 
-        if (new_point.x==0 && new_point.y==0)
-            std::cout << "no point" << '\n';
+        if (new_point.x==0 && new_point.y==0){
+        //    std::cout << "no point" << '\n';
+        }
         else{
-            std::cout << "new point ="<< new_point << '\n';
+        //    std::cout << "new point ="<< new_point << '\n';
             node_added=Node(new_point,i,i );
+            if(node_added.needLink(img_bin)==0){
+
+
             if( node_added.get_distance(node2)<10  ){
                 reached=true;
                 std::cout << "REACH" << '\n';
@@ -123,16 +133,17 @@ int main( int argc, char** argv )
           circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
           circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
           //circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
-
+      }
           imshow( "Display window", image );
 
           //waitKey(0);
           i++;
           tree1.drawPoint(image);
         //  tree1.draw_line_tree(image);
-          waitKey(100);
+          waitKey(10);
           //tree1.afficher_arbre();
-    }
+
+    }//fin while
 
     imshow( "Display window", image );
     waitKey(0);
@@ -144,7 +155,8 @@ int main( int argc, char** argv )
     //tree1.afficher_liste_noeuds_linked();
     tree1.draw_pathway(image, indices) ;
 
-
+    imshow("bin", img_bin);
+    waitKey(0);
     /**********************************************************/
 
     //affiche les noeuds liés a chaque noeuds
@@ -159,7 +171,7 @@ int main( int argc, char** argv )
     // Show our image inside it.
     imshow("gris", img_grey);
     imshow("bin", img_bin);
-    waitKey(0);                                          // Wait for a keystroke in the window
+    waitKey(0);                              // Wait for a keystroke in the window
 
     return 0;
 }
