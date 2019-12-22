@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
-
+#include <cmath>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
@@ -36,15 +36,14 @@ int Tree::getClosest(Node node){
 
     int key_val=0;
     for (size_t i = 0; i < this->list_node.size(); i++) {
-      x_a=this->list_node[i].getPoint().x;
-      y_a=this->list_node[i].getPoint().y;
-      x_n=node.getPoint().x;
-      y_n=node.getPoint().y;
-      if ( dist > sqrt(pow((x_a-x_n),2)+pow((y_a-y_n),2))  ){
-          key_val=i;
-          dist=sqrt(pow((x_a-x_n),2)+pow((y_a-y_n),2));
-      }
-
+          x_a=this->list_node[i].getPoint().x;
+          y_a=this->list_node[i].getPoint().y;
+          x_n=node.getPoint().x;
+          y_n=node.getPoint().y;
+          if ( dist > sqrt(pow((x_a-x_n),2)+pow((y_a-y_n),2))  ){
+              key_val=i;
+              dist=sqrt(pow((x_a-x_n),2)+pow((y_a-y_n),2));
+          }
     }
     //return list_node[key_val];
     return key_val;

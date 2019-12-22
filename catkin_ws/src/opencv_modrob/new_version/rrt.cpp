@@ -69,6 +69,7 @@ int main( int argc, char** argv )
           tree1.insert( new_node );
       }
       else std::cout << "SUR NOIR" << '\n';
+
       if(reached==true){
           tree1.insert(node2);
       }
@@ -144,7 +145,7 @@ int main( int argc, char** argv )
     //affiche les noeuds liés a chaque noeuds
     //tree1.afficher_liste_noeuds_linked();
     //affiche arbre complet
-    //tree1.afficher_arbre();
+    tree1.afficher_arbre();
 
 
     /*********************************************************/
