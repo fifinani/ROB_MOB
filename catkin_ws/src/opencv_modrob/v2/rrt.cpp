@@ -140,7 +140,7 @@ int main( int argc, char** argv )
           i++;
           tree1.drawPoint(image);
         //  tree1.draw_line_tree(image);
-          waitKey(10);
+          //waitKey(10);
           //tree1.afficher_arbre();
 
     }//fin while
@@ -169,7 +169,7 @@ int main( int argc, char** argv )
     //affiche fenetre
     imshow( "Display window", image );
     // Show our image inside it.
-    imshow("gris", img_grey);
+    //imshow("gris", img_grey);
     imshow("bin", img_bin);
     waitKey(0);                              // Wait for a keystroke in the window
 
