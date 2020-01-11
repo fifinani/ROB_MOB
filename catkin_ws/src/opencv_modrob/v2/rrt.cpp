@@ -23,34 +23,38 @@ int x_rand[10], y_rand[10];
 int main( int argc, char** argv )
 {
     srand (time(NULL));
-    char chemin[]="map2.pgm";
+    char chemin[]="../../projet_rob_mob/maps/map.pgm";
     loadimage(chemin);
 
     //initialisation de l'arbre et des points de départ et d'arrivé
-    Point point1(50,50);
+    Point point1(270,250);
     Node node1(point1,0,0);
     Tree tree1(node1);
-    Node node2(Point(150,150),1,1);
+    Node node2(Point(350,300),1,1);
     Node node3(Point(152,5),1,1);
-    Node node_final(Point(300,300),1,1);
+    Node node_final(Point(450,300),1,1);
 
     //indice du node le plus proche
     int closest_node, closest_node2;
 
     Node new_node;// point aléatoire
     Node node_added;//point reellement ajouté
+//reached =false
     bool reached=false;//condition de fin de boucle (si le nouveau point aux alentours du point finale)
     namedWindow( "Display window", WINDOW_AUTOSIZE );
     // dilatation
     Mat element1 = getStructuringElement( MORPH_ELLIPSE,Size( 10,10),Point(-1,-1) );
-    dilate(img_bin, img_bin, element1, Point(-1,-1), 1, BORDER_CONSTANT);
-
+    erode(img_bin, img_bin, element1, Point(-1,-1), 1, BORDER_CONSTANT);
+    imshow("img bin",img_bin);
     Point new_point;
     int q=10;
 
     int i=1;
     int dir=0;
   //  std::vector<Point> vect_point;
+
+  circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
+  circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
 
     while(!reached){
 
@@ -67,13 +71,15 @@ int main( int argc, char** argv )
         //    std::cout << "SUR NOIR" << '\n';
 
 /////////////////////////////////////////////////////
+        //get closest node
         closest_node=tree1.getClosest(new_node);
+
         //circle(image, new_node.getPoint(),5, Scalar(0,255,255),-1);
     //    std::cout << "closest node ="<<tree1.getNodeAt(closest_node).getPoint() << '\n';
 
     //    std::vector<int> v=node1.findEquation(node2);
     //    tree1.affiche_vect(v);
-
+        //get direction of the node
         dir=tree1.getNodeAt(closest_node).direction(new_node);
 
         if (dir==1){
@@ -83,8 +89,10 @@ int main( int argc, char** argv )
         if (dir==0){
             //std::cout << "droite" << '\n';
         }
+
         new_point=tree1.getNodeAt(closest_node).NewPos(new_node, q, width, dir);
         //circle(image, new_point,5, Scalar(0,255,255),-1);
+
 
         if (new_point.x==0 && new_point.y==0){
         //    std::cout << "no point" << '\n';
@@ -93,19 +101,23 @@ int main( int argc, char** argv )
         //    std::cout << "new point ="<< new_point << '\n';
             node_added=Node(new_point,i,i );
             if(node_added.needLink(img_bin)==0){
+                //si a besoin d'un lien
+                std::cout << "valeur pixel="<<  int(img_bin.at<uchar>(node_added.getPoint())  ) << '\n';
+                if (  int(img_bin.at<uchar>(node_added.getPoint()) )==255 ){
+                    std::cout << "a lier" << '\n';
+                    tree1.insert(node_added);
+                    tree1.getNodeAt(closest_node).insert(node_added);
+                }
 
-
-            if( node_added.get_distance(node2)<10  ){
-                reached=true;
-                std::cout << "REACH" << '\n';
-                node_added.insert(node2);
+                if( node_added.get_distance(node2)<10  ){
+                    reached=true;
+                    std::cout << "REACH" << '\n';
+                    node_added.insert(node2);
             }
-            tree1.insert(node_added);
-            tree1.getNodeAt(closest_node).insert(node_added);
 
             //affichage
         //    circle(image, new_node.getPoint(),5, Scalar(0,255,255),-1);
-            circle(image, node_added.getPoint(),5, Scalar(0,255,255),-1);
+        circle(image, node_added.getPoint(),5, Scalar(0,255,255),-1);
         //    line(image, new_node.getPoint(), tree1.getNodeAt(closest_node).getPoint(), Scalar(0,0,0), 2, 8, 0);
         //    line(image, new_node.getPoint(), node_added.getPoint(), Scalar(0,0,0), 2, 8, 0);
 
@@ -130,8 +142,7 @@ int main( int argc, char** argv )
 //////////////////////////////////////////////////////
 
           //tree1.getNodeAt(closest_node).afficher_liste_noeuds();
-          circle(image, node1.getPoint(),5, Scalar(0,0,255),-1);
-          circle(image, node2.getPoint(),5, Scalar(0,255,0),-1);
+
           //circle(image, tree1.getNodeAt(i).getPoint(),5, Scalar(255,0,00),-1);
       }
           imshow( "Display window", image );
@@ -139,8 +150,8 @@ int main( int argc, char** argv )
           //waitKey(0);
           i++;
           tree1.drawPoint(image);
-        //  tree1.draw_line_tree(image);
-          //waitKey(10);
+          //tree1.draw_line_tree(image);
+         // waitKey(0);
           //tree1.afficher_arbre();
 
     }//fin while
@@ -160,16 +171,16 @@ int main( int argc, char** argv )
     /**********************************************************/
 
     //affiche les noeuds liés a chaque noeuds
-    tree1.afficher_liste_noeuds_linked();
+//    tree1.afficher_liste_noeuds_linked();
     //affiche arbre complet
-    tree1.afficher_arbre();
+//    tree1.afficher_arbre();
 
 
     /*********************************************************/
     //affiche fenetre
     imshow( "Display window", image );
     // Show our image inside it.
-    //imshow("gris", img_grey);
+    imshow("gris", img_grey);
     imshow("bin", img_bin);
     waitKey(0);                              // Wait for a keystroke in the window
 
@@ -182,11 +193,13 @@ int loadimage(char* chemin){
 
   image = imread(chemin , CV_LOAD_IMAGE_COLOR);   // Read the file
   cvtColor(image, img_grey,COLOR_BGR2GRAY); //On passe l'image en niveau de gris
-	threshold(img_grey, img_bin,30,210,THRESH_BINARY_INV );
-
+  threshold(img_grey, img_bin,230,255,THRESH_BINARY );
+  //210,50
 
   width=image.size().width;
   height=image.size().height;
+  //std::cout << "val pixel=" << int(img_bin.at<uchar>(Point(270,350)) ) <<'\n';
+  imshow("bin", img_bin);
 
 
   return 0;

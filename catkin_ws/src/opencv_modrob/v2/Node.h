@@ -81,8 +81,9 @@ public:
 
       //verifie que le pixel n'est pas blanc
       int needLink(Mat image){
-          int val=int(image.at<uchar>(getPoint()) );
-          int v= int(val==210);
+          int val=int(image.at<uchar>(getPoint())  );
+         // std::cout << "val=" <<val << '\n';
+          int v= int(val==255);//seuil de blanc //precedement 210
           //std::cout << "point "<< getPoint()<<"pixel=" << v<<"val="<<val << '\n';
           if (v==0) {
               return 0;
