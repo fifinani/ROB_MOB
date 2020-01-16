@@ -21,8 +21,9 @@ R = Point(0,0,0)
 V = np.array([0,0]).T
 U = np.array([0,0]).T
 M = np.array([[1,0],[0,1]])
-k1 = 5
-k2 = 5
+k1 = 0.5
+k2 = 0.5
+
 vel_msg = Twist();
 vel_msg.linear.x = 0
 vel_msg.linear.y = 0
@@ -44,18 +45,20 @@ def odom_callback(data):
     M = np.array([[math.cos(theta),-l1*math.sin(theta)],[math.sin(theta),l1*math.cos(theta)]]);
     V[0] = -k1 * (P.x-R.x);
     V[1] = -k2 * (P.y-R.y);
+    print(str(theta))
     return;
 
 def objective_callback(data):
-    R = data.pose.position;
+    R.x = data.pose.position.x;
+    R.y = data.pose.position.y;
     return;
 
-def trajectoire(pub_twist):
+def trajectoire():
     U = np.dot(inv(M),V);
     vel_msg.linear.x = U[0]
     vel_msg.angular.z = U[1]
-    pub_twist.publish(vel_msg)
-    return;
+
+    return vel_msg;
 
 
 def waypoint_follow():
@@ -65,7 +68,7 @@ def waypoint_follow():
     rospy.init_node('command');
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():
-        trajectoire(pub_twist);
+        pub_twist.publish(trajectoire())
         rate.sleep();
 
 if __name__ == '__main__':

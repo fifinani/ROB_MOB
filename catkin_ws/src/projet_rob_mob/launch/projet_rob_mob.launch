@@ -2,20 +2,22 @@
 	<include file="$(find minilab_simulation)/launch/minilab_simulation.launch"/>
   <node name="my_teleop" pkg="my_teleop" type="my_teleop" />
   <include file="$(find minilab_navigation)/src/gmapping.launch"/>
-  <node name="joy_node" pkg="joy" type="joy_node" />
+
   <node name="map_saver" pkg="map_server" type="map_saver" args="-f $(find projet_rob_mob)/maps/map.pgm"/>
 	<!--
   <node name="move_base" pkg="move_base" type="move_base">
 
     <rosparam file="$(find projet_rob_mob)/move_base_params/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find projet_rob_mob)/move_base_params/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    
+
     <rosparam file="$(find projet_rob_mob)/move_base_params/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find projet_rob_mob)/move_base_params/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find projet_rob_mob)/move_base_params/base_local_planner_params.yaml" command="load" />
 
   </node>
+	<node name="joy_node" pkg="joy" type="joy_node" />
+	<node pkg="waypoint_follow" name="command"  type="command.py"/>
  -->
-	<node pkg="waypoint_follow" name="waypoint_follow"  type="waypoint_follow.py"/>
+
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find projet_rob_mob)/default.rviz" required="true"/>
 </launch>
