@@ -1,8 +1,8 @@
-# Install script for directory: /home/firas/ROB_MOB/catkin_ws/src/minilab_navigation
+# Install script for directory: /home/kartick/catkin_ws/src/minilab_navigation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/firas/ROB_MOB/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/kartick/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/firas/ROB_MOB/catkin_ws/build/minilab_navigation/catkin_generated/installspace/minilab_navigation.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/kartick/catkin_ws/build/minilab_navigation/catkin_generated/installspace/minilab_navigation.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/minilab_navigation/cmake" TYPE FILE FILES
-    "/home/firas/ROB_MOB/catkin_ws/build/minilab_navigation/catkin_generated/installspace/minilab_navigationConfig.cmake"
-    "/home/firas/ROB_MOB/catkin_ws/build/minilab_navigation/catkin_generated/installspace/minilab_navigationConfig-version.cmake"
+    "/home/kartick/catkin_ws/build/minilab_navigation/catkin_generated/installspace/minilab_navigationConfig.cmake"
+    "/home/kartick/catkin_ws/build/minilab_navigation/catkin_generated/installspace/minilab_navigationConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/minilab_navigation" TYPE FILE FILES "/home/firas/ROB_MOB/catkin_ws/src/minilab_navigation/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/minilab_navigation" TYPE FILE FILES "/home/kartick/catkin_ws/src/minilab_navigation/package.xml")
 endif()
 

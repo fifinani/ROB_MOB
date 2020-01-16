@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/firas/ROB_MOB/catkin_ws/src/my_teleop/src/my_teleop.cpp
+/home/kartick/catkin_ws/src/my_teleop/src/my_teleop.cpp
 ros/ros.h
 -
 geometry_msgs/Twist.h
