@@ -1,8 +1,0 @@
-prefix=/home/firas/ROB_MOB/catkin_ws/install
-
-Name: minilab_navigation
-Description: Description of minilab_navigation
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/firas/ROB_MOB/catkin_ws/install/lib 
-Requires: 
