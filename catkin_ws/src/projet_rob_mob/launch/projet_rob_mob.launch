@@ -1,8 +1,8 @@
 <launch>
 	<include file="$(find minilab_simulation)/launch/minilab_simulation.launch"/>
   <node name="my_teleop" pkg="my_teleop" type="my_teleop" />
-  <include file="$(find minilab_navigation)/src/gmapping.launch"/>
 
+  <include file="$(find minilab_navigation)/src/gmapping.launch"/>
   <node name="map_saver" pkg="map_server" type="map_saver" args="-f $(find projet_rob_mob)/maps/map.pgm"/>
 	<!--
   <node name="move_base" pkg="move_base" type="move_base">
