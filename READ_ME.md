@@ -13,6 +13,6 @@ Gmapping: rosrun gmapping slam_gmapping
 
 
 
-Partie opencv 
-cd catkin_ws/src/opencv_modrob/v2
-nom de l'executable "start"
+Partie opencv
+
+rosrun plani plani
