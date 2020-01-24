@@ -41,7 +41,7 @@ vel_msg.angular.z = 0
 def odom_callback(data):
     m = TransformStamped()
     m.header.frame_id = '/map'
-    m.child_frame_id = '/base_link'
+    m.child_frame_id = '/base_footprint'
     x = m.transform.translation.x
     y = m.transform.translation.y
     quaternion = [m.transform.rotation.x,m.transform.rotation.y,m.transform.rotation.z,m.transform.rotation.w];
@@ -50,17 +50,14 @@ def odom_callback(data):
     P.x = x+ l1*math.cos(theta);
     P.y = y+ l1*math.sin(theta);
     M = np.array([[math.cos(theta),-l1*math.sin(theta)],[math.sin(theta),l1*math.cos(theta)]]);
-    V[0] = math.sqrt((P.x-R.x)*(P.x-R.x) +(P.y-R.y)*(P.y-R.y))
-    V[1] = math.atan((P.y-R.y)/(P.x-R.x))
+    V[0] = math.sqrt((P.x-R.pose.position.x)*(P.x-R.pose.position.x) +(P.y-R.pose.position.y)*(P.y-R.pose.position.y))
+    V[1] = math.atan((P.y-R.pose.position.y)/(P.x-R.pose.position.x))
     V[2] = V[1]-theta
-    print(V[0])
-    print(V[1])
-    print(V[2])
     return;
 
 def objective_callback(data):
     tf_listener_ = tf.TransformListener()
-    R = tf_listener_.transformPoint("/base_link", data)
+    R = tf_listener_.transformPoint("/base_footprint", data)
     return;
 
 def trajectoire():
