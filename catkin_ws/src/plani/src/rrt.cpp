@@ -9,8 +9,9 @@
 #include "rrt.h"
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/Twist.h>
 #include <ros/ros.h>
+#include "Communication.h"
+
 #if CV_MAJOR_VERSION == 2
 // do opencv 2 code
 #elif CV_MAJOR_VERSION == 3
@@ -23,9 +24,27 @@ using namespace std;
 
 Mat image, img_grey, img_bin;
 int width, height;
+std::vector<cv::Point> vecteurDePoint;
+
+
 
 int x_rand[10], y_rand[10];
 
+/**********************************************************************************/
+/*void Callback(const geometry_msgs::PoseStampede& autorisation ){
+
+    int taille=vecteurDePoint.size();
+    ros::Publisher pos_pub_;
+    for (int i = 0; i < taille; i++) {
+        point.x=vecteurDePoint[i].x;
+        point.y=vecteurDePoint[i].y;
+        pointstamped.pose.position =point;
+        pointstamped.header.frame_id = "map";
+        pos_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("/position", taille );
+        pos_pub_.publish(pointstamped);
+    }
+}*/
+/*******************************************************************************/
 
 
 
@@ -38,7 +57,6 @@ void CallBackFunc(int event, int x, int y, int flags, void* userdata)
         cout << "Left button of the mouse is clicked - position (" << x << ", " << y << ")" << endl;
         p->x=x;
         p->y=y;
-
     }
 
 }
@@ -47,6 +65,10 @@ void CallBackFunc(int event, int x, int y, int flags, void* userdata)
 
 int main( int argc, char** argv )
 {
+
+
+
+
     srand (time(NULL));
     char chemin[]="my_map.pgm";
     loadimage(chemin);
@@ -193,7 +215,7 @@ int main( int argc, char** argv )
     //tree1.affiche_vect(indices);
     //tree2.affiche_vect(indices2);
 
-    std::vector<cv::Point> vecteurDePoint=tree1.do_list_point(tree2, indices, indices2);
+     vecteurDePoint=tree1.do_list_point(tree2, indices, indices2);
     //vecteur contenant tous les points du chemin
     tree1.affichePoint(vecteurDePoint);
     tree1.afficher_chemin(indices);
@@ -210,37 +232,18 @@ int main( int argc, char** argv )
 
 //              ROS
 
-    void Callback(const geometry_msgs::PoseStamped& autorisation );
-
-
 
     ros::init(argc, argv, "ros_node_position");
     ros::init(argc, argv, "listener");
 
-    ros::Publisher pos_pub_;
-    ros::Subscriber autorisation_sub_;
-    ros::NodeHandle nh_;
-    geometry_msgs::Point point;
-    geometry_msgs::PoseStamped pointstamped;
-
-    //autorisation_sub_ = n.subscribe("Autorisation_node", 1, Callback);
-
-    int taille=vecteurDePoint.size();
-    for (int i = 0; i < taille; i++) {
-        point.x=vecteurDePoint[i].x;
-        point.y=vecteurDePoint[i].y;
-        pointstamped.pose.position =point;
-        pointstamped.header.frame_id = "map";
-        pos_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("/position", taille );
-        pos_pub_.publish(pointstamped);
-    }
+    Communication com(vecteurDePoint);
 
     ros::spin();
 
     return 0;
 }
 
-/*******************************************************************************/
+/*********************************************************************************/
 //charge image
 int loadimage(char* chemin){
 

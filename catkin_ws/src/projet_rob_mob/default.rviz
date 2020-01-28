@@ -67,7 +67,7 @@ Visualization Manager:
       Max Color: 255; 255; 255
       Max Intensity: 0
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: -1.68362796e-24
       Name: LaserScan
       Position Transformer: XYZ
       Queue Size: 10
@@ -378,7 +378,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: odom
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:

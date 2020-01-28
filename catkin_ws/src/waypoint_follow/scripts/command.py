@@ -14,72 +14,78 @@ from geometry_msgs.msg import TransformStamped
 from move_base_msgs.msg import MoveBaseActionResult
 from geometry_msgs.msg import Quaternion
 from tf.transformations import euler_from_quaternion
+from tf2_msgs.msg  import TFMessage
 
-l1 = 0.1
-ang = [0,0,0]
-theta = 0
-P = Point(0,0,0)
-R = PoseStamped()
-R.pose.position.x = 0
-R.pose.position.y = 0
-
-V = np.array([0,0,0]).T
-U = np.array([0,0]).T
-M = np.array([[1,0],[0,1]])
-k1 = 0.5
-k2 = 1
-k3 = 0.5
-
-vel_msg = Twist();
-vel_msg.linear.x = 0
-vel_msg.linear.y = 0
-vel_msg.linear.z = 0
-vel_msg.angular.x = 0
-vel_msg.angular.y = 0
-vel_msg.angular.z = 0
-
-def odom_callback(data):
-    m = TransformStamped()
-    m.header.frame_id = '/map'
-    m.child_frame_id = '/base_footprint'
-    x = m.transform.translation.x
-    y = m.transform.translation.y
-    quaternion = [m.transform.rotation.x,m.transform.rotation.y,m.transform.rotation.z,m.transform.rotation.w];
-    ang = euler_from_quaternion(quaternion)
-    theta = ang[2];
-    P.x = x+ l1*math.cos(theta);
-    P.y = y+ l1*math.sin(theta);
-    M = np.array([[math.cos(theta),-l1*math.sin(theta)],[math.sin(theta),l1*math.cos(theta)]]);
-    V[0] = math.sqrt((P.x-R.pose.position.x)*(P.x-R.pose.position.x) +(P.y-R.pose.position.y)*(P.y-R.pose.position.y))
-    V[1] = math.atan((P.y-R.pose.position.y)/(P.x-R.pose.position.x))
-    V[2] = V[1]-theta
-    return;
-
-def objective_callback(data):
-    tf_listener_ = tf.TransformListener()
-    R = tf_listener_.transformPoint("/base_footprint", data)
-    return;
-
-def trajectoire():
-    vel_msg.linear.x = k1 * V[0]
-    vel_msg.angular.z = k3 * V[2]
-
-    return vel_msg;
+class Command :
 
 
-def waypoint_follow():
-    pub_twist = rospy.Publisher('/cmd_vel',Twist, queue_size=10)
-    rospy.Subscriber('/move_base_simple/goal', PoseStamped,objective_callback);
-    rospy.Subscriber("/odom",Odometry,odom_callback);
-    rospy.init_node('command');
-    rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        pub_twist.publish(trajectoire())
-        rate.sleep();
+
+    def objective_callback(self,data):
+        self.R = data;
+
+        return;
+
+    def odom_callback(self,data):
+        k1 = 0.2
+        k2 = 1
+        k3 = 5* k1
+        Rt = PoseStamped()
+        now = rospy.Time.now()
+        self.R.header.stamp = now
+        self.tf_listener_.waitForTransform("map", "base_footprint",now , rospy.Duration(4.0))
+        Rt = self.tf_listener_.transformPose("base_footprint",self.R)
+        position, quaternion = self.tf_listener_.lookupTransform("map","base_footprint",now)
+        ang = euler_from_quaternion(quaternion)
+        theta = ang[2]
+        print (theta)
+
+        self.V[0] = math.sqrt((Rt.pose.position.x)*(Rt.pose.position.x)+(Rt.pose.position.y)*(Rt.pose.position.y))
+        self.V[1] = math.atan((Rt.pose.position.y)/(Rt.pose.position.x))
+        self.V[2] = self.V[1] - theta
+        print("robot")
+        print(position[0])
+        print(position[1])
+        print("objective")
+        print(self.R.pose.position.x)
+        print(self.R.pose.position.y)
+        self.vel_msg.linear.x = k1 * self.V[0]
+        self.vel_msg.angular.z = k3 * self.V[2]
+        return;
+
+    def update(self):
+        self.pub_twist.publish(self.vel_msg)
+        return
+
+    def __init__(self, *args) :
+        self.vel_msg = Twist();
+        self.vel_msg.linear.x = 0
+        self.vel_msg.linear.y = 0
+        self.vel_msg.linear.z = 0
+        self.vel_msg.angular.x = 0
+        self.vel_msg.angular.y = 0
+        self.vel_msg.angular.z= 0
+        self.R = PoseStamped()
+        self.R.pose.position.x = 0
+        self.R.pose.position.y = 0
+        self.R.header.frame_id = 'map'
+        self.V = np.array([0,0,0]).T
+        self.tf_listener_ = tf.TransformListener()
+        self.pub_twist = rospy.Publisher('/cmd_vel',Twist, queue_size=10)
+        self.pub_objective = rospy.Publisher('/objective',PoseStamped, queue_size=10)
+        rospy.Subscriber('/move_base_simple/goal', PoseStamped,self.objective_callback);
+        rospy.Subscriber('/odom', Odometry,self.odom_callback);
+
+
 
 if __name__ == '__main__':
 
-    try:
-        waypoint_follow()
-    except rospy.ROSInterruptException:
-        pass
+    rospy.init_node('command')
+    command = Command()
+    rate = rospy.Rate(100) # 10hz
+    while not rospy.is_shutdown():
+
+        try:
+            command.update()
+        except rospy.ROSInterruptException:
+            pass
+        rate.sleep()

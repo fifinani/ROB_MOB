@@ -8,7 +8,7 @@ project(plani)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
- 
+
   roscpp
   rospy
   sensor_msgs
@@ -138,7 +138,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(plani src/rrt.cpp src/Tree.cpp src/Noeud.cpp)
+add_executable(plani src/rrt.cpp src/Tree.cpp src/Noeud.cpp src/Communication.cpp)
 target_link_libraries(plani
 ${catkin_LIBRARIES}
 ${OpenCV}
@@ -153,7 +153,7 @@ ${OpenCV_LIBS})
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
- add_dependencies(plani ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+ add_dependencies(plani ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} )
 
 ## Specify libraries to link a library or executable target against
 #target_link_libraries(plani
